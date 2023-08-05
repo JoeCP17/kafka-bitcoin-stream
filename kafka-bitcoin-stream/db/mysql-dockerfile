@@ -1,0 +1,5 @@
+FROM mysql:8.0.19
+
+COPY ./init.d /docker-entrypoint-initdb.d
+
+ENV LANG C.UTF-8
