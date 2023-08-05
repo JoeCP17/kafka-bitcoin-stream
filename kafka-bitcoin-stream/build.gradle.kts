@@ -31,10 +31,19 @@ subprojects {
 
     dependencies {
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+        developmentOnly("org.springframework.boot:spring-boot-devtools")
 
         //kotlin
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+        //lombok
+        compileOnly("org.projectlombok:lombok")
+        annotationProcessor("org.projectlombok:lombok")
+
+        // log
+        implementation("org.slf4j:slf4j-api:1.7.30")
+
 
         // test
         testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -58,6 +67,12 @@ subprojects {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
             jvmTarget = "11"
+        }
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom(configurations.annotationProcessor.get())
         }
     }
 }

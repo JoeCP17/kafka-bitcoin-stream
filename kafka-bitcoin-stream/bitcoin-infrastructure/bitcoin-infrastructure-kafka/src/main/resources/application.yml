@@ -1,0 +1,15 @@
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9094
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    # StringSerializer : producer의 경우 값을 보내는 입장이기에, 해당 값을 직렬화하여 보낸다.
+
+    consumer:
+      bootstrap-servers: localhost:9094
+      group-id: bitcoin # Unique string that identifies the consumer group to which this consumer belongs.
+      auto-offset-reset: earliest # What to do when there is no initial offset in Kafka or if the current offset no longer exists on the server.
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    # StringDeserializer : consumer의 경우 값을 받는 입장이기에, 해당 값을 역직렬화하여 받는다.

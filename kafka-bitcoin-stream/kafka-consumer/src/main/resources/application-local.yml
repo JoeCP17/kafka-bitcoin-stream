@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      jdbc-url: jdbc:mysql://localhost:3307/coin?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimeZone=Asia/Seoul
+      username: root
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9094
+      group-id: bitcoin # Unique string that identifies the consumer group to which this consumer belongs.
+      auto-offset-reset: earliest # What to do when there is no initial offset in Kafka or if the current offset no longer exists on the server.
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    # StringDeserializer : consumer의 경우 값을 받는 입장이기에, 해당 값을 역직렬화하여 받는다.
+
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace

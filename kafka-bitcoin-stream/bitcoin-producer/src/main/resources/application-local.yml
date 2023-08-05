@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      jdbc-url: jdbc:mysql://localhost:3307/coin?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimeZone=Asia/Seoul
+      username: root
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9094
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    # StringSerializer : producer의 경우 값을 보내는 입장이기에, 해당 값을 직렬화하여 보낸다.
+
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace

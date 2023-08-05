@@ -9,10 +9,9 @@ jar.enabled = false
 apply(plugin = "org.springframework.boot")
 
 dependencies {
-    implementation(project(":bitcoin-infrastructure:bitcoin-infrastructure-kafka"))
-    implementation(project(":bitcoin-infrastructure:bitcoin-external-data"))
-    implementation(project(":bitcoin-infrastructure:bitcoin-infrastructure-jpa"))
-
-    // spring boot
+    implementation ("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-web")
+
+    // websocket
+    implementation ("org.springframework.boot:spring-boot-starter-websocket")
 }
