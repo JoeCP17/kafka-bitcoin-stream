@@ -1,6 +1,7 @@
 package com.kafka.scheduledata.fetcher
 
 import org.assertj.core.api.Assertions
+import org.bitcoin.external.ExternalApplication
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -15,7 +16,7 @@ import org.springframework.web.reactive.function.client.WebClient
  * 참조한 링크 : https://minkukjo.github.io/framework/2020/06/28/JUnit-23/
  * 생성자 주입 시, 클래스에 @Autowired 를 붙여주게되면 선언되어있는 constructor가 자동으로 주입되게 된다.
  */
-@SpringBootTest
+@SpringBootTest(classes = [ExternalApplication::class, BithumbFetcher::class])
 @DisplayName("WebClientFetcher 테스트")
 class WebClientFetcherTest @Autowired constructor(
     var webClient: WebClient,

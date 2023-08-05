@@ -9,10 +9,8 @@ jar.enabled = false
 apply(plugin = "org.springframework.boot")
 
 dependencies {
-    //spring boot
-    api("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation(project(":bitcoin-infrastructure:bitcoin-infrastructure-jpa"))
+    // spring boot
+    implementation("org.springframework.boot:spring-boot-starter-web")
 
-    //DB connect
-    runtimeOnly("com.h2database:h2")
-    runtimeOnly("mysql:mysql-connector-java")
 }

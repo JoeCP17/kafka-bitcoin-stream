@@ -9,7 +9,7 @@ jar.enabled = false
 apply(plugin = "org.springframework.boot")
 
 dependencies {
-    implementation("org.springframework.kafka:spring-kafka")
+    api("org.springframework.kafka:spring-kafka")
     implementation("org.springframework.boot:spring-boot-starter-validation") // kafka 에서 필요
 
     testImplementation("org.springframework.kafka:spring-kafka-test")
