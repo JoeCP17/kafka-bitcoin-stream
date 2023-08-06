@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface JpaOverBookRepository: JpaRepository<JpaOverBook, Long> {
 
-    fun findByOrderCurrency(name: String): JpaOverBook?
+    fun findByOrderCurrency(symbol: String): JpaOverBook?
 }

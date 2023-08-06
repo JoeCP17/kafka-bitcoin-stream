@@ -68,7 +68,7 @@ class BithumbService(
 
 
     // 값이 없을 경우 save 처리를 하기 위해 ?로 설정
-    private fun findOrderBookByOrderCurrency(name: String): JpaOverBook? =
-        overBookRepository.findByOrderCurrency(name)
+    private fun findOrderBookByOrderCurrency(symbol: String): JpaOverBook? =
+        overBookRepository.findByOrderCurrency(symbol)
 
 }
