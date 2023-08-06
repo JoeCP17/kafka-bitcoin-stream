@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
-      url: jdbc:mysql://localhost:3307/coin?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimeZone=Asia/Seoul
       username: root
+      jdbc-url: jdbc:mysql://localhost:3307/coin?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimeZone=Asia/Seoul
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
@@ -11,10 +11,10 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
-    hibernate:
-      ddl-auto: create-drop
 
   kafka:
+    producer:
+        bootstrap-servers: localhost:9094
     consumer:
       bootstrap-servers: localhost:9094
       group-id: bitcoin # Unique string that identifies the consumer group to which this consumer belongs.
@@ -27,3 +27,5 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
+server:
+  port: 8082

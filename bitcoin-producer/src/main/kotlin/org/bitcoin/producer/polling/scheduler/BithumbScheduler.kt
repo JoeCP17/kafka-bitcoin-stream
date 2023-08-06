@@ -6,6 +6,7 @@ import org.bitcoin.producer.polling.reader.BithumbReader
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
 @Component
 class BithumbScheduler(
@@ -14,7 +15,8 @@ class BithumbScheduler(
     val objectMapper: ObjectMapper
 ) {
 
-        @Scheduled(cron = "10 * * * * *")
+        @Transactional
+        @Scheduled(cron = "3 * * * * *")
         fun getBitumbOrderbookData() {
             val bitcoinSymbolDataBySavedSymbolList =
                 bithumbReader.getBitcoinSymbolDataBySavedSymbolList()

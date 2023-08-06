@@ -11,8 +11,6 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
-    hibernate:
-      ddl-auto: create-drop
 
   kafka:
     producer:
@@ -25,3 +23,6 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
+
+server:
+  port: 8081

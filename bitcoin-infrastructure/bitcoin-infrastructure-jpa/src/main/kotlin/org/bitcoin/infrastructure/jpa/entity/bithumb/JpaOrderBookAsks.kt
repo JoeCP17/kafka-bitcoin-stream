@@ -8,7 +8,7 @@ import javax.persistence.*
 class JpaOrderBookAsks(
     quantity: String = "",
     price: String = "",
-    overBookId: JpaOverBook? = null,
+    overBookId: JpaOverBook? = JpaOverBook(),
     createdDate: LocalDateTime = LocalDateTime.now(),
     updatedDate: LocalDateTime = LocalDateTime.now()
 ) {
