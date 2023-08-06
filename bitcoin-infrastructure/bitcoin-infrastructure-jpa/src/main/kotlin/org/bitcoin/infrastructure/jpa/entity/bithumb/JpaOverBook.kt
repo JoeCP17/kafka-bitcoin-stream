@@ -6,7 +6,6 @@ import javax.persistence.*
 @Entity
 @Table(name = "over_book")
 class JpaOverBook(
-    symbol: String = "",
     timestamp: String = "",
     paymentCurrency: String = "",
     orderCurrency: String = "",
@@ -20,19 +19,15 @@ class JpaOverBook(
     var id: Long = 0
         protected set
 
-    @Column(name = "symbol", length = 10, nullable = false)
-    var symbol: String = symbol
-        protected set
-
-    @Column(name = "time_stamp", length = 10, nullable = false)
+    @Column(name = "time_stamp", length = 50, nullable = false)
     var timestamp: String = timestamp
         protected set
 
-    @Column(name = "payment_currency", length = 10, nullable = false)
+    @Column(name = "payment_currency", length = 50, nullable = false)
     var paymentCurrency: String = paymentCurrency
         protected set
 
-    @Column(name = "order_currency", length = 10, nullable = false)
+    @Column(name = "order_currency", length = 50, nullable = false)
     var orderCurrency: String = orderCurrency
         protected set
 

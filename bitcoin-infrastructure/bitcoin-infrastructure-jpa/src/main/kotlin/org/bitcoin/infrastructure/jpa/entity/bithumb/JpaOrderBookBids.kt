@@ -19,11 +19,11 @@ class JpaOrderBookBids(
     var id: Long = 0
         protected set
 
-    @Column(name = "quantity", length = 10, nullable = false)
+    @Column(name = "quantity", length = 30, nullable = false)
     var quantity: String = quantity
         protected set
 
-    @Column(name = "price", length = 10, nullable = false)
+    @Column(name = "price", length = 40, nullable = false)
     var price: String = price
         protected set
 
