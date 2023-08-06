@@ -1,7 +1,7 @@
 package org.bitcoin.producer.polling.reader
 
-import org.bitcoin.external.fetcher.dto.BitumbOrderbookResponseDTO
-import org.bitcoin.external.fetcher.BithumbFetcher
+import org.bitcoin.external.bithumb.fetcher.dto.BitumbOrderbookResponseDTO
+import org.bitcoin.external.bithumb.fetcher.BithumbFetcher
 import org.bitcoin.infrastructure.jpa.entity.bithumb.CoinSymbolRepository
 import org.bitcoin.infrastructure.jpa.entity.bithumb.JpaCoinSymbol
 import org.springframework.stereotype.Service

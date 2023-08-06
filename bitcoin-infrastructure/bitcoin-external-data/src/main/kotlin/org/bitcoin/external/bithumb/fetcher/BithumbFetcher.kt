@@ -1,6 +1,8 @@
-package org.bitcoin.external.fetcher
+package org.bitcoin.external.bithumb.fetcher
 
-import org.bitcoin.external.fetcher.dto.BitumbOrderbookResponseDTO
+import org.bitcoin.external.bithumb.fetcher.dto.BitumbOrderbookResponseDTO
+import org.bitcoin.external.bithumb.socket.dto.OrderBookDepthRequestDTO
+import org.bitcoin.external.bithumb.socket.dto.OrderBookDepthResponseDTO
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.reactive.function.client.WebClient
@@ -9,7 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient
 class BithumbFetcher(
 
     @Qualifier("bitumbWebClient")
-    val bitumbWebClient: WebClient,
+    val bitumbWebClient: WebClient
 ) {
 
     fun getBitumbOrderbook(code: String): BitumbOrderbookResponseDTO {

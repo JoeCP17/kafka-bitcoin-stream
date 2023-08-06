@@ -1,4 +1,4 @@
-package org.bitcoin.external.fetcher.dto
+package org.bitcoin.external.bithumb.fetcher.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
