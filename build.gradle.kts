@@ -44,7 +44,6 @@ subprojects {
         // log
         implementation("org.slf4j:slf4j-api:1.7.30")
 
-
         // test
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }

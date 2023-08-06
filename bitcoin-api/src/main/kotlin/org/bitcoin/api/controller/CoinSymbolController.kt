@@ -1,7 +1,7 @@
 package org.bitcoin.api.controller
 
-import com.kafka.scheduledata.controller.dto.AddCoinSymbolResponse
-import com.kafka.scheduledata.controller.dto.AddCoinsymbolRequest
+import org.bitcoin.api.controller.dto.AddCoinSymbolResponse
+import org.bitcoin.api.controller.dto.AddCoinsymbolRequest
 import org.bitcoin.api.service.CoinSymbolService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

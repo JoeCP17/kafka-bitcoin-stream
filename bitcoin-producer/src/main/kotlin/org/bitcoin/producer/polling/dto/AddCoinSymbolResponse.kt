@@ -1,4 +1,4 @@
-package org.bitcoin.api.controller.dto
+package org.bitcoin.producer.polling.dto
 
 import org.bitcoin.infrastructure.jpa.entity.bithumb.JpaCoinSymbol
 import java.time.LocalDateTime

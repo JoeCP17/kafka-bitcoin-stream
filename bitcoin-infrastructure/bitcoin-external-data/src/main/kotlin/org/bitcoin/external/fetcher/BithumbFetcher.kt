@@ -1,6 +1,6 @@
-package com.kafka.scheduledata.fetcher
+package org.bitcoin.external.fetcher
 
-import com.kafka.scheduledata.fetcher.dto.BitumbOrderbookResponseDTO
+import org.bitcoin.external.fetcher.dto.BitumbOrderbookResponseDTO
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.reactive.function.client.WebClient

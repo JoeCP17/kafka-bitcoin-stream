@@ -1,4 +1,4 @@
-package com.kafka.scheduledata.fetcher.dto
+package org.bitcoin.external.fetcher.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

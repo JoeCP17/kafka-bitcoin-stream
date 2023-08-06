@@ -3,7 +3,7 @@ package org.bitcoin.api
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = ["org.bitcoin"])
 class BitcoinApiApplication
 
 fun main(args: Array<String>) {
