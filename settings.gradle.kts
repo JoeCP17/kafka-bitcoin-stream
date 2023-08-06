@@ -2,7 +2,7 @@
 rootProject.name = "kafka-bitcoin-stream"
 include("bitcoin-api")
 include("bitcoin-producer")
-include("kafka-consumer")
+include("bitcoin-consumer")
 include("bitcoin-infrastructure")
 include("bitcoin-infrastructure:bitcoin-infrastructure-kafka")
 include("bitcoin-infrastructure:bitcoin-infrastructure-jpa")
