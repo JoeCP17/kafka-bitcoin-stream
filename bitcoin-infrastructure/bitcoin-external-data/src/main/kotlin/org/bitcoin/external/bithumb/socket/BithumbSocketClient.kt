@@ -5,16 +5,16 @@ import org.bitcoin.external.bithumb.socket.dto.OrderBookDepthRequestDTO
 import org.bitcoin.external.bithumb.socket.handler.BithumbOrderBookDepthHandler
 import org.bitcoin.external.bithumb.socket.handler.BithumbSocketConnectHandler
 import org.springframework.context.annotation.Configuration
+import org.springframework.stereotype.Service
 import org.springframework.web.socket.messaging.WebSocketStompClient
 
-@Configuration
+@Service
 class BithumbSocketClient(
     private val bithumbSocketConnectHandler: BithumbSocketConnectHandler,
     private val bithumbOrderBookDepthHandler: BithumbOrderBookDepthHandler,
     val objectMapper: ObjectMapper
 ) {
     private val bithumbSocket = WebSocketStompClient()
-
 
     fun connectBithumbSocket(request: OrderBookDepthRequestDTO) {
         bithumbSocket.connect(getBithumbSocketPath(), bithumbSocketConnectHandler)
@@ -26,7 +26,7 @@ class BithumbSocketClient(
         })
     }
 
-    fun disconnectBithumbSocket() {
+    fun stopBithumbSocketConnection() {
         bithumbSocket.stop()
     }
 
