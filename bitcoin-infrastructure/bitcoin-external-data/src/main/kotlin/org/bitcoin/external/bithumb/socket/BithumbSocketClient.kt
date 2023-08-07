@@ -1,14 +1,14 @@
-package org.bitcoin.external.config
+package org.bitcoin.external.bithumb.socket
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.bitcoin.external.bithumb.socket.dto.OrderBookDepthRequestDTO
 import org.bitcoin.external.bithumb.socket.handler.BithumbOrderBookDepthHandler
 import org.bitcoin.external.bithumb.socket.handler.BithumbSocketConnectHandler
-import org.springframework.stereotype.Component
+import org.springframework.context.annotation.Configuration
 import org.springframework.web.socket.messaging.WebSocketStompClient
 
-@Component
-class BithumbSocketConfig(
+@Configuration
+class BithumbSocketClient(
     private val bithumbSocketConnectHandler: BithumbSocketConnectHandler,
     private val bithumbOrderBookDepthHandler: BithumbOrderBookDepthHandler,
     val objectMapper: ObjectMapper

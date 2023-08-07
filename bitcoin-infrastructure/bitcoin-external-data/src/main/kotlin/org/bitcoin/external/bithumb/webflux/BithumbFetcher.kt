@@ -1,6 +1,6 @@
-package org.bitcoin.external.bithumb.fetcher
+package org.bitcoin.external.bithumb.webflux
 
-import org.bitcoin.external.bithumb.fetcher.dto.BitumbOrderbookResponseDTO
+import org.bitcoin.external.bithumb.webflux.dto.BitumbOrderbookResponseDTO
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.reactive.function.client.WebClient

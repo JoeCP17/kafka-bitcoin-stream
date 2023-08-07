@@ -1,4 +1,4 @@
-package org.bitcoin.external.config
+package org.bitcoin.external.bithumb.webflux.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
