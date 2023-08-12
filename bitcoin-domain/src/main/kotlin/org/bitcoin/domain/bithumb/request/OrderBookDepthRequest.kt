@@ -1,7 +1,5 @@
 package org.bitcoin.domain.bithumb.request
 
-import org.bitcoin.domain.bithumb.CoinSymbol
-
 // 변경호가에 대한 Request 요청
 data class OrderBookDepthRequest(
     val type: String,

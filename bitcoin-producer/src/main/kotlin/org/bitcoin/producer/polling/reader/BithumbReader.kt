@@ -1,6 +1,6 @@
 package org.bitcoin.producer.polling.reader
 
-import org.bitcoin.domain.bithumb.CoinSymbol
+import org.bitcoin.domain.bithumb.request.CoinSymbol
 import org.bitcoin.domain.bithumb.response.BitumbOrderbookResponse
 import org.bitcoin.external.bithumb.webflux.fetcher.BithumbFetcher
 import org.bitcoin.infrastructure.jpa.bithumb.service.CoinSymbolRepository

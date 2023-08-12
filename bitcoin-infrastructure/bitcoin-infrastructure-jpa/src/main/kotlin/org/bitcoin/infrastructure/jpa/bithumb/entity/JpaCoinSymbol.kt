@@ -1,6 +1,6 @@
 package org.bitcoin.infrastructure.jpa.bithumb.entity
 
-import org.bitcoin.domain.bithumb.CoinSymbol
+import org.bitcoin.domain.bithumb.request.CoinSymbol
 import java.time.LocalDateTime
 import javax.persistence.*
 
@@ -37,5 +37,15 @@ class JpaCoinSymbol(
             createdDate = this.createdDate,
             updatedDate = this.updatedDate
         )
+    }
+
+    companion object {
+        fun toEntity(coinSymbol: CoinSymbol): JpaCoinSymbol {
+            return JpaCoinSymbol(
+                symbol = coinSymbol.symbol,
+                createdDate = coinSymbol.createdDate,
+                updatedDate = coinSymbol.updatedDate
+            )
+        }
     }
 }

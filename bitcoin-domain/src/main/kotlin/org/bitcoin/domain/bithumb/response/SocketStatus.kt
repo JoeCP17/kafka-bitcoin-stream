@@ -1,4 +1,4 @@
-package org.bitcoin.domain.bithumb
+package org.bitcoin.domain.bithumb.response
 
 data class SocketStatus(
     val status: String,

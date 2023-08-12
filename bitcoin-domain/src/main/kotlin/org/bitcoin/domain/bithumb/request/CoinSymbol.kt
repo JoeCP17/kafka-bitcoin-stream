@@ -1,9 +1,9 @@
-package org.bitcoin.domain.bithumb
+package org.bitcoin.domain.bithumb.request
 
 import java.time.LocalDateTime
 
 data class CoinSymbol(
-    var id: Long,
+    var id: Long? = null,
 
     var symbol: String,
 

@@ -1,5 +1,6 @@
 package org.bitcoin.api.controller.dto
 
+import org.bitcoin.domain.bithumb.request.CoinSymbol
 import org.bitcoin.infrastructure.jpa.bithumb.entity.JpaCoinSymbol
 import java.time.LocalDateTime
 
@@ -10,12 +11,12 @@ data class AddCoinSymbolResponse(
     val updatedDate: LocalDateTime
 ) {
     companion object {
-        fun of(jpaCoinSymbol: JpaCoinSymbol): AddCoinSymbolResponse {
+        fun of(coinSymbol: CoinSymbol): AddCoinSymbolResponse {
             return AddCoinSymbolResponse(
-                id = jpaCoinSymbol.id,
-                symbol = jpaCoinSymbol.symbol,
-                createdDate = jpaCoinSymbol.createdDate,
-                updatedDate = jpaCoinSymbol.updatedDate
+                id = coinSymbol.id!!,
+                symbol = coinSymbol.symbol,
+                createdDate = coinSymbol.createdDate,
+                updatedDate = coinSymbol.updatedDate
             )
         }
     }
