@@ -2,7 +2,7 @@ package com.kafka.scheduledata.fetcher
 
 import org.assertj.core.api.Assertions
 import org.bitcoin.external.ExternalApplication
-import org.bitcoin.external.bithumb.webflux.BithumbFetcher
+import org.bitcoin.external.bithumb.webflux.fetcher.BithumbFetcher
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

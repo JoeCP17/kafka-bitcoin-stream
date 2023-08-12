@@ -12,6 +12,10 @@ dependencies {
     implementation(project(":bitcoin-infrastructure:bitcoin-infrastructure-kafka"))
     implementation(project(":bitcoin-infrastructure:bitcoin-external-data"))
     implementation(project(":bitcoin-infrastructure:bitcoin-infrastructure-jpa"))
+    implementation(project(":bitcoin-infrastructure:bitcoin-redis"))
+
+    implementation(project(":bitcoin-domain"))
+
 
     // spring boot
     implementation("org.springframework.boot:spring-boot-starter-web")

@@ -1,7 +1,8 @@
 package org.bitcoin.consumer
 
 import org.bitcoin.consumer.dto.BitumbOrderbookResponseDTO
-import org.bitcoin.infrastructure.jpa.entity.bithumb.*
+import org.bitcoin.domain.bithumb.response.OrderBookDepthResponse
+import org.bitcoin.infrastructure.jpa.bithumb.entity.*
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -26,6 +27,10 @@ class BithumbService(
             saveOrderBookAsks(response, overBook)
             saveOrderBookBids(response, overBook)
         }
+    }
+
+    fun saveOrderBookStreamData(deserializeData: OrderBookDepthResponse) {
+        TODO("Not yet implemented")
     }
 
     private fun saveOverBook(response: BitumbOrderbookResponseDTO): JpaOverBook {

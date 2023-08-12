@@ -1,6 +1,6 @@
 package org.bitcoin.api.controller.dto
 
-import org.bitcoin.infrastructure.jpa.entity.bithumb.JpaCoinSymbol
+import org.bitcoin.infrastructure.jpa.bithumb.entity.JpaCoinSymbol
 import java.time.LocalDateTime
 
 data class AddCoinSymbolResponse(

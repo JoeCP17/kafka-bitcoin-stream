@@ -1,8 +1,8 @@
 package org.bitcoin.consumer.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.bitcoin.infrastructure.jpa.entity.bithumb.JpaOrderBookAsks
-import org.bitcoin.infrastructure.jpa.entity.bithumb.JpaOverBook
+import org.bitcoin.infrastructure.jpa.bithumb.entity.JpaOrderBookAsks
+import org.bitcoin.infrastructure.jpa.bithumb.entity.JpaOverBook
 import java.time.LocalDateTime
 
 data class BitumbOrderbookResponseDTO(

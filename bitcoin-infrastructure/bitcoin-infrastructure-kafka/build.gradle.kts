@@ -9,6 +9,7 @@ jar.enabled = false
 apply(plugin = "org.springframework.boot")
 
 dependencies {
+    implementation(project(":bitcoin-domain"))
     api("org.springframework.kafka:spring-kafka")
     implementation("org.springframework.boot:spring-boot-starter-validation") // kafka 에서 필요
 

@@ -10,6 +10,8 @@ jar.enabled = false
 apply(plugin = "org.springframework.boot")
 
 dependencies {
+    implementation(project(":bitcoin-domain"))
+
     //spring boot
     api("org.springframework.boot:spring-boot-starter-data-jpa")
 

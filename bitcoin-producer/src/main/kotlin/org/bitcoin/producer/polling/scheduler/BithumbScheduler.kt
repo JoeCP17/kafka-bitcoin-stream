@@ -1,7 +1,7 @@
 package org.bitcoin.producer.polling.scheduler
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.bitcoin.producer.constant.TopicType
+import org.bitcoin.domain.bithumb.type.TopicType
 import org.bitcoin.producer.polling.reader.BithumbReader
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.scheduling.annotation.Scheduled

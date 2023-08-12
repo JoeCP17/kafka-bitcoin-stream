@@ -11,6 +11,8 @@ apply(plugin = "org.springframework.boot")
 dependencies {
     implementation(project(":bitcoin-infrastructure:bitcoin-infrastructure-jpa"))
     implementation(project(":bitcoin-infrastructure:bitcoin-external-data"))
+    implementation(project(":bitcoin-domain"))
+
     // spring boot
     implementation("org.springframework.boot:spring-boot-starter-web")
 
