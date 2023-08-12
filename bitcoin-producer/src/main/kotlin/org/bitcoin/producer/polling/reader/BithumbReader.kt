@@ -1,9 +1,9 @@
 package org.bitcoin.producer.polling.reader
 
+import org.bitcoin.domain.bithumb.CoinSymbol
 import org.bitcoin.domain.bithumb.response.BitumbOrderbookResponse
 import org.bitcoin.external.bithumb.webflux.fetcher.BithumbFetcher
-import org.bitcoin.infrastructure.jpa.bithumb.entity.JpaCoinSymbolRepository
-import org.bitcoin.infrastructure.jpa.bithumb.entity.JpaCoinSymbol
+import org.bitcoin.infrastructure.jpa.bithumb.service.CoinSymbolRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -11,15 +11,15 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 class BithumbReader(
     val bithumbFetcher: BithumbFetcher,
-    val jpaCoinSymbolRepository: JpaCoinSymbolRepository
+    val coinSymbolRepository: CoinSymbolRepository
 ) {
     fun getBitcoinSymbolDataBySavedSymbolList(): List<BitumbOrderbookResponse> =
         getAllBitcoinSymbol().stream()
             .map { bitcoinSymbol -> getBitumbOrderbookData(bitcoinSymbol.symbol) }
             .toList()
 
-    private fun getAllBitcoinSymbol(): List<JpaCoinSymbol> {
-        return jpaCoinSymbolRepository.findAll()
+    private fun getAllBitcoinSymbol(): List<CoinSymbol> {
+        return coinSymbolRepository.findAll()
     }
 
     private fun getBitumbOrderbookData(code: String): BitumbOrderbookResponse {

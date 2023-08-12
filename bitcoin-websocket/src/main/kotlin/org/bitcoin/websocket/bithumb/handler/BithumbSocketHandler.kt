@@ -46,7 +46,6 @@ class BithumbSocketHandler(
             if (!readTree.has("status")) {
                 val response =
                     objectMapper.readValue(message.payload, OrderBookDepthResponse::class.java)
-                applicationEventPublisher.publishEvent(response)
             }
         } catch (e: Exception) {
             e.printStackTrace()

@@ -2,9 +2,13 @@ package org.bitcoin.producer.socket
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.bitcoin.domain.bithumb.response.OrderBookDepthResponse
-import org.springframework.context.event.EventListener
+import org.bitcoin.domain.bithumb.type.TopicType
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
+import org.springframework.transaction.event.TransactionPhase
+import org.springframework.transaction.event.TransactionalEventListener
 
 @Service
 class BithumbSocketPublish(
@@ -12,10 +16,11 @@ class BithumbSocketPublish(
     private val objectMapper: ObjectMapper
 ) {
 
-    @EventListener(OrderBookDepthResponse::class)
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun listenBithumbSocketListener(overBookDepthResponse: OrderBookDepthResponse) {
         println("Receive OrderBookDepthResponse: $overBookDepthResponse")
-        kafkaTemplate.send("bithumb-stream", objectMapper.serialize(overBookDepthResponse))
+        kafkaTemplate.send(TopicType.BITHUMB_STREAM.topicName, objectMapper.serialize(overBookDepthResponse))
     }
 
     fun <T> ObjectMapper.serialize(data: T): String = writeValueAsString(data)
