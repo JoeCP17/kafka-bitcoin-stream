@@ -1,4 +1,4 @@
-package org.bitcoin.redis.pub
+package org.bitcoin.redispublish.publish
 
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Service

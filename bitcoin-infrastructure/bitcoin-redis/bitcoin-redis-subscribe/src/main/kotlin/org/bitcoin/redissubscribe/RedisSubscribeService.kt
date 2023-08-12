@@ -1,4 +1,4 @@
-package org.bitcoin.redis.sub
+package org.bitcoin.redissubscribe
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.ApplicationEventPublisher

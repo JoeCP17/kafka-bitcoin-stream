@@ -12,7 +12,7 @@ dependencies {
     implementation(project(":bitcoin-infrastructure:bitcoin-infrastructure-kafka"))
     implementation(project(":bitcoin-infrastructure:bitcoin-external-data"))
     implementation(project(":bitcoin-infrastructure:bitcoin-infrastructure-jpa"))
-    implementation(project(":bitcoin-infrastructure:bitcoin-redis"))
+    implementation(project(":bitcoin-infrastructure:bitcoin-redis:bitcoin-redis-subscribe"))
 
     implementation(project(":bitcoin-domain"))
 
