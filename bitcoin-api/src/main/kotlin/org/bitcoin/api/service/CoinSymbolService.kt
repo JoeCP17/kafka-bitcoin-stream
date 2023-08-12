@@ -18,7 +18,9 @@ class CoinSymbolService(
     @Transactional
     fun addCoinSymbol(symbol: AddCoinsymbolRequest): AddCoinSymbolResponse {
        saveBitcoinSymbol(symbol.convertToCoinSymbol()).let { coinSymbol ->
-           return AddCoinSymbolResponse.of(coinSymbol)
+           val response = AddCoinSymbolResponse.of(coinSymbol)
+           sendRedisMessage(response)
+           return response
        }
     }
 
@@ -26,4 +28,7 @@ class CoinSymbolService(
         return coinSymbolRepository.save(bitcoinSymbolJpa)
     }
 
+    private fun sendRedisMessage(response: AddCoinSymbolResponse) {
+        redisPublishService.publish(response.channel, response)
+    }
 }
