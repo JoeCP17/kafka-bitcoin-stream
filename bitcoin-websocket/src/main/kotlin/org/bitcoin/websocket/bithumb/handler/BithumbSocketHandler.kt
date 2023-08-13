@@ -1,9 +1,12 @@
 package org.bitcoin.websocket.bithumb.handler
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.bitcoin.domain.bithumb.request.CoinSymbol
 import org.bitcoin.domain.bithumb.request.OrderBookDepthRequest
 import org.bitcoin.domain.bithumb.response.OrderBookDepthResponse
+import org.bitcoin.domain.type.ExchangeType
 import org.bitcoin.infrastructure.jpa.bithumb.service.CoinSymbolRepository
+import org.bitcoin.redispublish.publish.RedisPublishService
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 import org.springframework.web.socket.CloseStatus
@@ -16,7 +19,7 @@ import java.util.concurrent.CountDownLatch
 class BithumbSocketHandler(
     private val objectMapper: ObjectMapper,
     private val bithumbRepository: CoinSymbolRepository,
-    val applicationEventPublisher: ApplicationEventPublisher
+    private val redisPublishService: RedisPublishService
 ): TextWebSocketHandler() {
 
     // 클라이언트가 접속을 종료할 때까지 대기하는 CountDownLatch
@@ -32,7 +35,7 @@ class BithumbSocketHandler(
     // 클라이언트가 접속을 성공할 경우 발생하는 이벤트
     override fun afterConnectionEstablished(session: WebSocketSession) {
         println("Got Connect : ${session.id}")
-        val depthRequest = OrderBookDepthRequest.createRequest(bithumbRepository.findAll())
+        val depthRequest = OrderBookDepthRequest.createRequest(findAllByExchange(ExchangeType.BITHUMB))
         session.sendMessage(TextMessage(objectMapper.writeValueAsString(depthRequest)))
     }
 
@@ -46,9 +49,22 @@ class BithumbSocketHandler(
             if (!readTree.has("status")) {
                 val response =
                     objectMapper.readValue(message.payload, OrderBookDepthResponse::class.java)
+
+                redisPublishService.publish(
+                    getChannelInSymbols(findAllByExchange(ExchangeType.BITHUMB)),
+                    response
+                )
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun findAllByExchange(exchage: ExchangeType): List<CoinSymbol> {
+        return bithumbRepository.findByExchange(exchage)
+    }
+
+    private fun getChannelInSymbols(symbols: List<CoinSymbol>): String {
+        return symbols[0].channel
     }
 }

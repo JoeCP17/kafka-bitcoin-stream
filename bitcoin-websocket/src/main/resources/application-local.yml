@@ -2,6 +2,9 @@ server:
   port: 8084
 
 spring:
+  redis:
+    host: localhost
+    port: 6479
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:

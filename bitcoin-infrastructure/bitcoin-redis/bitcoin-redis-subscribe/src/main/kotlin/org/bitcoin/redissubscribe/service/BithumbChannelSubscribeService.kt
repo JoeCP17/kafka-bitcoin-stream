@@ -1,6 +1,7 @@
 package org.bitcoin.redissubscribe.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.bitcoin.domain.bithumb.response.OrderBookDepthResponse
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.redis.connection.Message
 import org.springframework.data.redis.connection.MessageListener
@@ -12,6 +13,9 @@ class BithumbChannelSubscribeService(
     private val applicationEventPublisher: ApplicationEventPublisher
 ): MessageListener {
     override fun onMessage(message: Message, pattern: ByteArray?) {
+        println("message : ${String(message.body)}")
+        val response = objectMapper.readValue(message.body, OrderBookDepthResponse::class.java)
 
+        applicationEventPublisher.publishEvent(response)
     }
 }

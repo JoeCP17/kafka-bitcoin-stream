@@ -2,6 +2,7 @@ package org.bitcoin.infrastructure.jpa.bithumb.service
 
 import org.bitcoin.infrastructure.jpa.bithumb.entity.JpaCoinSymbolRepository
 import org.bitcoin.domain.bithumb.request.CoinSymbol
+import org.bitcoin.domain.type.ExchangeType
 import org.bitcoin.infrastructure.jpa.bithumb.entity.JpaCoinSymbol
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
@@ -15,6 +16,10 @@ class CoinSymbolRepository(
         val symbolEntity = coinSymbolRepository.findBySymbol(symbol)
 
         return symbolEntity.mapToCoinSymbolDTO()
+    }
+    fun findByExchange(exchange: ExchangeType): List<CoinSymbol> {
+        val symbolEntities = coinSymbolRepository.findAllByExchange(exchange)
+        return symbolEntities.map { it.mapToCoinSymbolDTO() }
     }
 
     fun findAll(): List<CoinSymbol> {
