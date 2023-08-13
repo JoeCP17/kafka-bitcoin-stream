@@ -1,6 +1,7 @@
 package org.bitcoin.infrastructure.jpa.bithumb.entity
 
 import org.bitcoin.domain.bithumb.request.CoinSymbol
+import org.bitcoin.domain.type.ExchangeType
 import java.time.LocalDateTime
 import javax.persistence.*
 
@@ -8,6 +9,8 @@ import javax.persistence.*
 @Table(name = "coin_symbol")
 class JpaCoinSymbol(
     symbol: String? = "",
+    channelTopic: String? = "",
+    exchange: ExchangeType = ExchangeType.NONE, // bithumb, upbit, kobit
     createdDate: LocalDateTime = LocalDateTime.now(),
     updatedDate: LocalDateTime = LocalDateTime.now()
 ) {
@@ -19,6 +22,15 @@ class JpaCoinSymbol(
 
     @Column(name = "coin_symbol", length = 10, nullable = false)
     var symbol: String = symbol!!
+        protected set
+
+    @Column(name = "channel_topic", length = 50, nullable = false)
+    var channelTopic: String = channelTopic!!
+        protected set
+
+    @Column(name = "exchange", length = 10, nullable = false)
+    @Enumerated(EnumType.STRING)
+    var exchange: ExchangeType = exchange
         protected set
 
     @Column(name = "created_date", nullable = false)
@@ -34,6 +46,8 @@ class JpaCoinSymbol(
         return CoinSymbol(
             id = this.id,
             symbol = this.symbol,
+            channel = this.channelTopic,
+            exchange = this.exchange,
             createdDate = this.createdDate,
             updatedDate = this.updatedDate
         )
@@ -43,6 +57,8 @@ class JpaCoinSymbol(
         fun toEntity(coinSymbol: CoinSymbol): JpaCoinSymbol {
             return JpaCoinSymbol(
                 symbol = coinSymbol.symbol,
+                channelTopic = coinSymbol.channel,
+                exchange = coinSymbol.exchange,
                 createdDate = coinSymbol.createdDate,
                 updatedDate = coinSymbol.updatedDate
             )

@@ -8,6 +8,7 @@ jar.enabled = false
 
 dependencies {
     implementation(project(":bitcoin-domain"))
+    implementation(project(":bitcoin-infrastructure:bitcoin-infrastructure-jpa"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
