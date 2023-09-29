@@ -17,10 +17,12 @@ spring:
 
   kafka:
     producer:
-      bootstrap-servers: localhost:9094
+      bootstrap-servers: localhost:9092, localhost:9093, localhost:9094
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
     # StringSerializer : producer의 경우 값을 보내는 입장이기에, 해당 값을 직렬화하여 보낸다.
+    streams:
+      replication-factor: 3
 
 
 logging.level:

@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 
 services:
   db:
@@ -37,50 +37,151 @@ services:
     ports:
       - "6579:6379"
 
-  zookeeper:
-    container_name: zookeeper
+  zookeeper-1:
+    container_name: zookeeper-1
+    hostname: zookeeper1
     image: wurstmeister/zookeeper:latest
     ports:
       - "2181:2181"
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_DATA_DIR: /zookeeper/data
+      ZOOKEEPER_SERVERS: zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888
+      # 왼쪽 port가 리더 승격을 위한, 투표 포트, 오른쪽이 데이터 송수신을 위한 포트
+    volumes:
+      - ./zookeeper/data/1:/zookeeper/data
     networks:
       - kafka-net
 
-  kafka:
-      container_name: kafka
-      image: wurstmeister/kafka:latest
-      depends_on:
-        - zookeeper
-      ports:
-        - "9094:9094"
-      environment:
-        # 카프카 접속 가능한 URL 설정
-        KAFKA_ADVERTISED_LISTENERS: INSIDE://:9092,OUTSIDE://localhost:9094
+  zookeeper-2:
+    container_name: zookeeper-2
+    hostname: zookeeper2
+    image: wurstmeister/zookeeper:latest
+    ports:
+      - "2182:2182"
+    environment:
+      ZOOKEEPER_SERVER_ID: 2
+      ZOOKEEPER_CLIENT_PORT: 2182
+      ZOOKEEPER_DATA_DIR: /zookeeper/data
+      ZOOKEEPER_SERVERS: zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888
+    volumes:
+      - ./zookeeper/data/2:/zookeeper/data
+    networks:
+      - kafka-net
 
-        # 카프카 서버의 내부 리스너, 0.0.0.0으로 설정해야 카프카 서버 내부 인스턴스 통신 가능
-        # 0.0.0.0은 카프카 서버의 모든 인터페이스에서 수신이 가능하다.
-        KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://0.0.0.0:9094
-        KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
-        KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
-        KAFKA_CREATE_TOPICS: "test:1:1"
-        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-      networks:
-        - kafka-net
+  zookeeper-3:
+    container_name: zookeeper-3
+    hostname: zookeeper3
+    image: wurstmeister/zookeeper:latest
+    ports:
+      - "2183:2183"
+    environment:
+      ZOOKEEPER_SERVER_ID: 3
+      ZOOKEEPER_CLIENT_PORT: 2183
+      ZOOKEEPER_DATA_DIR: /zookeeper/data
+      ZOOKEEPER_SERVERS: zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888
+    volumes:
+      - ./zookeeper/data/3:/zookeeper/data
+    networks:
+      - kafka-net
+
+  kafka-1:
+    container_name: kafka-1
+    hostname: kafka1
+    image: wurstmeister/kafka:latest
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    ports:
+      - "9092:9092"
+      - "19092:19092"
+    environment:
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:19092,OUTSIDE://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka1:19092,OUTSIDE://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper3:2183"
+      KAFKA_BROKER_ID: 1
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_CREATE_TOPICS: "TEST:1:1" # Topic명:Partition개수:Replica개수
+      KAFKA_LOG_DIRS: /kafka/data
+    volumes:
+      - ./kafka/logs/1:/kafka/data
+    networks:
+      - kafka-net
+
+  kafka-2:
+    container_name: kafka-2
+    hostname: kafka2
+    image: wurstmeister/kafka:latest
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    ports:
+      - "9093:9093"
+      - "29092:29092"
+    environment:
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:29092,OUTSIDE://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka2:29092,OUTSIDE://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper3:2183"
+      KAFKA_BROKER_ID: 2
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_CREATE_TOPICS: "TEST:1:1" # Topic명:Partition개수:Replica개수
+      KAFKA_LOG_DIRS: /kafka/data
+    volumes:
+      - ./kafka/logs/2:/kafka/data
+    networks:
+      - kafka-net
+
+  kafka-3:
+    container_name: kafka-3
+    hostname: kafka3
+    image: wurstmeister/kafka:latest
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    ports:
+      - "9094:9094"
+      - "39092:39092"
+    environment:
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:39092,OUTSIDE://0.0.0.0:9094
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka3:39092,OUTSIDE://localhost:9094
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper3:2183"
+      KAFKA_BROKER_ID: 3
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_CREATE_TOPICS: "TEST:1:1" # Topic명:Partition개수:Replica개수
+      KAFKA_LOG_DIRS: /kafka/data
+    volumes:
+      - ./kafka/logs/3:/kafka/data
+    networks:
+      - kafka-net
 
   # Kafka 모니터링 툴
   akhq:
     image: tchiotludo/akhq:latest
     hostname: akhq
     depends_on:
-      - kafka
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+      - kafka-1
+      - kafka-2
+      - kafka-3
     environment:
       AKHQ_CONFIGURATION: |
         akhq:
           connections:
             kafka:
               properties:
-                bootstrap.servers: kafka:9092
+                bootstrap.servers: kafka1:19092,kafka2:29092,kafka3:39092
     ports:
       - "8083:8080"
     networks:
