@@ -23,6 +23,8 @@ spring:
     # StringSerializer : producer의 경우 값을 보내는 입장이기에, 해당 값을 직렬화하여 보낸다.
     streams:
       replication-factor: 3
+    consumer:
+      group-id: bitcoin
 
 
 logging.level:

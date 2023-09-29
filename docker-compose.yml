@@ -13,29 +13,11 @@ services:
     ports:
       - "3307:3306"
 
-  testdb:
-    image: mysql
-    platform: linux/x86_64
-    build:
-      context: ./db
-      dockerfile: mysql-dockerfile
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-      TZ: 'Asia/Seoul'
-    ports:
-      - "3308:3306"
-
   redis:
     container_name: redis
     image: redis
     ports:
       - "6479:6379"
-
-  test-redis:
-    container_name: test-redis
-    image: redis
-    ports:
-      - "6579:6379"
 
   zookeeper-1:
     container_name: zookeeper-1
@@ -105,7 +87,6 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper3:2183"
       KAFKA_BROKER_ID: 1
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-      KAFKA_CREATE_TOPICS: "TEST:1:1" # Topic명:Partition개수:Replica개수
       KAFKA_LOG_DIRS: /kafka/data
     volumes:
       - ./kafka/logs/1:/kafka/data
@@ -131,7 +112,6 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper3:2183"
       KAFKA_BROKER_ID: 2
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-      KAFKA_CREATE_TOPICS: "TEST:1:1" # Topic명:Partition개수:Replica개수
       KAFKA_LOG_DIRS: /kafka/data
     volumes:
       - ./kafka/logs/2:/kafka/data
@@ -157,7 +137,6 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper3:2183"
       KAFKA_BROKER_ID: 3
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-      KAFKA_CREATE_TOPICS: "TEST:1:1" # Topic명:Partition개수:Replica개수
       KAFKA_LOG_DIRS: /kafka/data
     volumes:
       - ./kafka/logs/3:/kafka/data
