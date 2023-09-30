@@ -1,35 +1,9 @@
 spring:
+  profiles:
+    include: jpa, kafka
   redis:
     host: localhost
     port: 6479
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      username: root
-      jdbc-url: jdbc:mysql://localhost:3307/coin?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimeZone=Asia/Seoul
-
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL5Dialect
-    properties:
-      hibernate:
-        format_sql: true
-        show_sql: true
-
-  kafka:
-    producer:
-      bootstrap-servers: localhost:9092, localhost:9093, localhost:9094
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    # StringSerializer : producer의 경우 값을 보내는 입장이기에, 해당 값을 직렬화하여 보낸다.
-    streams:
-      replication-factor: 3
-    consumer:
-      group-id: bitcoin
-
-
-logging.level:
-  org.hibernate.SQL: debug
-  org.hibernate.type: trace
 
 server:
   port: 8081

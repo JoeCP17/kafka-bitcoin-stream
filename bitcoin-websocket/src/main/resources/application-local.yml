@@ -2,22 +2,9 @@ server:
   port: 8084
 
 spring:
+  profiles:
+    include: jpa
+
   redis:
     host: localhost
     port: 6479
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      username: root
-      jdbc-url: jdbc:mysql://localhost:3307/coin?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimeZone=Asia/Seoul
-
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL5Dialect
-    properties:
-      hibernate:
-        format_sql: true
-        show_sql: true
-
-logging.level:
-  org.hibernate.SQL: debug
-  org.hibernate.type: trace

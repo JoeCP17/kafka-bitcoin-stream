@@ -27,21 +27,21 @@ class BithumbSocketHandler(
 
     // 클라이언트가 접속을 종료할 경우 발생하는 이벤트
     override fun afterConnectionClosed(session: WebSocketSession, status: CloseStatus) {
-        println("Connection closed: ${status.code} - ${status.reason}")
+        println("[BITHUMB] Connection closed: ${status.code} - ${status.reason}")
         session.close()
         closeLatch.countDown()
     }
 
     // 클라이언트가 접속을 성공할 경우 발생하는 이벤트
     override fun afterConnectionEstablished(session: WebSocketSession) {
-        println("Got Connect : ${session.id}")
+        println("[BITHUMB] Got Connect : ${session.id}")
         val depthRequest = OrderBookDepthRequest.createRequest(findAllByExchange(ExchangeType.BITHUMB))
         session.sendMessage(TextMessage(objectMapper.writeValueAsString(depthRequest)))
     }
 
     // 클라이언트가 메시지를 보낼 경우 발생하는 이벤트
     override fun handleTextMessage(session: WebSocketSession, message: TextMessage) {
-        println("Got Message : ${message.payload}")
+        println("[BITHUMB] Got Message : ${message.payload}")
 
         try {
             val readTree = objectMapper.readTree(message.payload)
