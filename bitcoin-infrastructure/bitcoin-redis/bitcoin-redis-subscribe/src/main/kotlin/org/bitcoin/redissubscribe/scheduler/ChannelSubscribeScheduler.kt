@@ -20,7 +20,7 @@ class ChannelSubscribeScheduler(
      */
 
     @Transactional
-    @Scheduled(cron = "10 * * * * *")
+    @Scheduled(cron = "3 * * * * *")
     fun subscribeRedisTopic() {
         val symbols = coinSymbolRepository.findAll()
 
@@ -38,7 +38,6 @@ class ChannelSubscribeScheduler(
             ExchangeType.UPBIT -> {
                 redisSubscribeListener.subscribeUpbit(ChannelTopic(coinSymbol.channel))
             }
-
             ExchangeType.KOBIT -> {
                 redisSubscribeListener.subscribeKobit(ChannelTopic(coinSymbol.channel))
             }

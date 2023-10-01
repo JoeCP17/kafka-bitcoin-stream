@@ -1,4 +1,4 @@
-package org.bitcoin.consumer
+package org.bitcoin.consumer.bithumb
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.bitcoin.consumer.dto.BitumbOrderbookResponseDTO

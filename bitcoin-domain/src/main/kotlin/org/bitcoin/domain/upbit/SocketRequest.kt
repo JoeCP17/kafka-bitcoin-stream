@@ -34,8 +34,8 @@ data class SocketRequest(
             return codes.map { code -> "KRW-$code" }
         }
 
-        fun createBufferRequest(codes: List<String>): StringBuilder {
-            return StringBuilder().apply {
+        fun createBufferRequest(codes: List<String>): ByteArray {
+            val requestValue = StringBuilder().apply {
                 append("[{\"ticket\":\"test example\"},{\"type\":\"orderbook\",\"codes\":[")
                 codes.forEachIndexed { index, code ->
                     append("\"KRW-$code\"")
@@ -45,6 +45,8 @@ data class SocketRequest(
                 }
                 append("]},{\"format\":\"DEFAULT\"}]")
             }
+
+            return requestValue.toString().toByteArray()
         }
     }
 }

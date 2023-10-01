@@ -1,4 +1,4 @@
-package org.bitcoin.consumer
+package org.bitcoin.consumer.bithumb
 
 import org.bitcoin.consumer.dto.BitumbOrderbookResponseDTO
 import org.bitcoin.domain.bithumb.response.OrderBookDepthResponse

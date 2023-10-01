@@ -15,16 +15,16 @@ class BithumbScheduler(
     val objectMapper: ObjectMapper
 ) {
 
-        @Transactional
-        @Scheduled(cron = "3 * * * * *")
-        fun getBitumbOrderbookData() {
-            val bitcoinSymbolDataBySavedSymbolList =
-                bithumbReader.getBitcoinSymbolDataBySavedSymbolList()
-
-            bitcoinSymbolDataBySavedSymbolList.forEach {response ->
-                kafkaTemplate.send(TopicType.BITHUMB.topicName, objectMapper.serialize(response))
-            }
-        }
+//        @Transactional
+//        @Scheduled(cron = "3 * * * * *")
+//        fun getBitumbOrderbookData() {
+//            val bitcoinSymbolDataBySavedSymbolList =
+//                bithumbReader.getBitcoinSymbolDataBySavedSymbolList()
+//
+//            bitcoinSymbolDataBySavedSymbolList.forEach {response ->
+//                kafkaTemplate.send(TopicType.BITHUMB.topicName, objectMapper.serialize(response))
+//            }
+//        }
 
         fun <T> ObjectMapper.serialize(data: T): String = writeValueAsString(data)
 }

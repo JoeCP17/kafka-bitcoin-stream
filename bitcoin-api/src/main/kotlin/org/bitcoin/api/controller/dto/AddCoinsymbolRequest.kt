@@ -14,7 +14,7 @@ data class AddCoinsymbolRequest(
     fun convertToCoinSymbol(): CoinSymbol {
         return CoinSymbol(
             symbol = this.symbol,
-            channel = topicPath.plus(this.symbol),
+            channel = topicPath.plus(this.exchange).plus("/").plus(this.symbol),
             exchange = ExchangeType.valueOf(this.exchange),
             createdDate = LocalDateTime.now(),
             updatedDate = LocalDateTime.now()

@@ -4,7 +4,6 @@ server:
 spring:
   profiles:
     include: jpa
-
   redis:
     host: localhost
     port: 6479

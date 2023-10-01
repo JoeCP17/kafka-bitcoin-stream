@@ -13,7 +13,7 @@ class BithumbChannelSubscribeService(
     private val applicationEventPublisher: ApplicationEventPublisher
 ): MessageListener {
     override fun onMessage(message: Message, pattern: ByteArray?) {
-        println("message : ${String(message.body)}")
+        println("[BITHUMB] message : ${String(message.body)}")
         val response = objectMapper.readValue(message.body, OrderBookDepthResponse::class.java)
 
         applicationEventPublisher.publishEvent(response)

@@ -38,7 +38,7 @@ class UpbitSocketHandler(
 
         val tickerRequest = SocketRequest.createBufferRequest(coinList)
 
-        session.sendMessage(BinaryMessage(tickerRequest.toString().toByteArray()))
+        session.sendMessage(BinaryMessage(tickerRequest))
     }
 
     override fun handleBinaryMessage(session: WebSocketSession, message: BinaryMessage) {
@@ -49,7 +49,7 @@ class UpbitSocketHandler(
             if (decodeBinaryData != null) {
                 redisPublishService.publish(
                     getChannelInSymbols(findAllByExchange(ExchangeType.UPBIT)),
-                    message.payload
+                    decodeBinaryData
                 )
             }
         } catch (e: Exception) {
