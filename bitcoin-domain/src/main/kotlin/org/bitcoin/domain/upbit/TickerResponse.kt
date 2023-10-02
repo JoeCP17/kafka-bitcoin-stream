@@ -1,0 +1,37 @@
+package org.bitcoin.domain.upbit
+
+data class TickerResponse(
+    val type: String,
+    val code: String,
+    val opening_price: Long,
+    val high_price: Long,
+    val low_price: Long,
+    val prev_closing_price: Long,
+    val acc_trade_price: Long,
+    val change: String,
+    val change_price: Double,
+    val signed_change_price: Double,
+    val change_rate: Double,
+    val signed_change_rate: Double,
+    val ask_bid: String,
+    val trade_volume: Double,
+    val acc_trade_volume: Double,
+    val trade_date: String,
+    val trade_time: String,
+    val trade_timestamp: Long,
+    val acc_ask_volume: Double,
+    val acc_bid_volume: Double,
+    val highest_52_week_price: Double,
+    val highest_52_week_date: String,
+    val lowest_52_week_price: Double,
+    val lowest_52_week_date: String,
+    val market_state: String,
+    val is_trading_suspended: Boolean,
+    val delisting_date: String?,
+    val market_warning: String,
+    val timestamp: Long,
+    val acc_trade_price_24h: Double,
+    val acc_trade_volume_24h: Double,
+    val stream_type: String
+) {
+}

@@ -14,5 +14,4 @@ fun main(args: Array<String>) {
 	val upbit = ctx.getBean(UpbitService::class.java)
 	bithumb.getOrderBootDepth()
 	upbit.getTickerDepth()
-
 }

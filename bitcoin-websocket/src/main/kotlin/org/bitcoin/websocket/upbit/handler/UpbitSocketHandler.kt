@@ -5,6 +5,7 @@ import org.bitcoin.domain.bithumb.request.CoinSymbol
 import org.bitcoin.domain.type.ExchangeType
 import org.bitcoin.domain.upbit.OrderBookResponse
 import org.bitcoin.domain.upbit.SocketRequest
+import org.bitcoin.domain.upbit.TickerResponse
 import org.bitcoin.infrastructure.jpa.bithumb.service.CoinSymbolRepository
 import org.bitcoin.redispublish.publish.RedisPublishService
 import org.springframework.stereotype.Component
@@ -36,7 +37,7 @@ class UpbitSocketHandler(
         val coinList =
             findAllByExchange(ExchangeType.UPBIT).stream().map { coin -> coin.symbol }.toList()
 
-        val tickerRequest = SocketRequest.createBufferRequest(coinList)
+        val tickerRequest = SocketRequest.createBufferRequest("ticker", coinList)
 
         session.sendMessage(BinaryMessage(tickerRequest))
     }
@@ -44,7 +45,7 @@ class UpbitSocketHandler(
     override fun handleBinaryMessage(session: WebSocketSession, message: BinaryMessage) {
         println("[UPBIT] Got Message : ${message.payload}")
         try {
-            val decodeBinaryData = decodeBinaryData(message.payload)
+            val decodeBinaryData = decodeBinaryDataToTicker(message.payload)
 
             if (decodeBinaryData != null) {
                 redisPublishService.publish(
@@ -65,9 +66,16 @@ class UpbitSocketHandler(
         return symbols[0].channel
     }
 
-    private fun decodeBinaryData(hexData: ByteBuffer): OrderBookResponse? {
+    // TODO : 디코딩 fun 확장함수로 관리하거나, 수정 필요 (현재는 임시로 작성)
+    private fun decodeBinaryDataToOrderBook(hexData: ByteBuffer): OrderBookResponse? {
         val data = hexData.array()
         val decodeData = String(data, Charsets.UTF_8)
         return objectMapper.readValue(decodeData, OrderBookResponse::class.java)
+    }
+
+    private fun decodeBinaryDataToTicker(hexData: ByteBuffer): TickerResponse? {
+        val data = hexData.array()
+        val decodeData = String(data, Charsets.UTF_8)
+        return objectMapper.readValue(decodeData, TickerResponse::class.java)
     }
 }

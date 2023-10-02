@@ -34,9 +34,9 @@ data class SocketRequest(
             return codes.map { code -> "KRW-$code" }
         }
 
-        fun createBufferRequest(codes: List<String>): ByteArray {
+        fun createBufferRequest(type: String, codes: List<String>): ByteArray {
             val requestValue = StringBuilder().apply {
-                append("[{\"ticket\":\"test example\"},{\"type\":\"orderbook\",\"codes\":[")
+                append("[{\"ticket\":\"test example\"},{\"type\":$type,\"codes\":[")
                 codes.forEachIndexed { index, code ->
                     append("\"KRW-$code\"")
                     if (index != codes.size - 1) {

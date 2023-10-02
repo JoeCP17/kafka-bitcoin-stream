@@ -28,11 +28,8 @@ services:
     environment:
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_DATA_DIR: /zookeeper/data
       ZOOKEEPER_SERVERS: zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888
       # 왼쪽 port가 리더 승격을 위한, 투표 포트, 오른쪽이 데이터 송수신을 위한 포트
-    volumes:
-      - ./zookeeper/data/1:/zookeeper/data
     networks:
       - kafka-net
 
@@ -45,10 +42,7 @@ services:
     environment:
       ZOOKEEPER_SERVER_ID: 2
       ZOOKEEPER_CLIENT_PORT: 2182
-      ZOOKEEPER_DATA_DIR: /zookeeper/data
       ZOOKEEPER_SERVERS: zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888
-    volumes:
-      - ./zookeeper/data/2:/zookeeper/data
     networks:
       - kafka-net
 
@@ -61,10 +55,7 @@ services:
     environment:
       ZOOKEEPER_SERVER_ID: 3
       ZOOKEEPER_CLIENT_PORT: 2183
-      ZOOKEEPER_DATA_DIR: /zookeeper/data
       ZOOKEEPER_SERVERS: zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888
-    volumes:
-      - ./zookeeper/data/3:/zookeeper/data
     networks:
       - kafka-net
 
@@ -87,9 +78,6 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper3:2183"
       KAFKA_BROKER_ID: 1
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-      KAFKA_LOG_DIRS: /kafka/data
-    volumes:
-      - ./kafka/logs/1:/kafka/data
     networks:
       - kafka-net
 
@@ -112,9 +100,6 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper3:2183"
       KAFKA_BROKER_ID: 2
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-      KAFKA_LOG_DIRS: /kafka/data
-    volumes:
-      - ./kafka/logs/2:/kafka/data
     networks:
       - kafka-net
 
@@ -137,9 +122,6 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper3:2183"
       KAFKA_BROKER_ID: 3
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-      KAFKA_LOG_DIRS: /kafka/data
-    volumes:
-      - ./kafka/logs/3:/kafka/data
     networks:
       - kafka-net
 

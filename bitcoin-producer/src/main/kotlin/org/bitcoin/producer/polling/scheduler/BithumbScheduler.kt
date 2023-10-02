@@ -15,6 +15,8 @@ class BithumbScheduler(
     val objectMapper: ObjectMapper
 ) {
 
+    // TODO : 현재는 사용 안함 추후 서킷브레이커 적용 후, 살릴 예정
+
 //        @Transactional
 //        @Scheduled(cron = "3 * * * * *")
 //        fun getBitumbOrderbookData() {

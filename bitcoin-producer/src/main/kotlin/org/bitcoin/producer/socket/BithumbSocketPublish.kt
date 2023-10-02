@@ -1,16 +1,14 @@
 package org.bitcoin.producer.socket
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.bitcoin.domain.bithumb.response.OrderBookDepthResponse
+import org.bitcoin.domain.bithumb.response.BithumbOrderBookDepthResponse
+import org.bitcoin.domain.bithumb.response.BithumbTickerResponse
 import org.bitcoin.domain.bithumb.type.TopicType
 import org.bitcoin.domain.upbit.OrderBookResponse
+import org.bitcoin.domain.upbit.TickerResponse
 import org.springframework.context.event.EventListener
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Propagation
-import org.springframework.transaction.annotation.Transactional
-import org.springframework.transaction.event.TransactionPhase
-import org.springframework.transaction.event.TransactionalEventListener
 
 @Service
 class BithumbSocketPublish(
@@ -18,16 +16,16 @@ class BithumbSocketPublish(
     private val objectMapper: ObjectMapper
 ) {
 
-    @EventListener(OrderBookDepthResponse::class)
-    fun listenBithumbSocketListener(overBookDepthResponse: OrderBookDepthResponse) {
-        println("[BITHUMB] Receive OrderBookDepthResponse: $overBookDepthResponse")
-        kafkaTemplate.send(TopicType.BITHUMB_STREAM.topicName, objectMapper.serialize(overBookDepthResponse))
+    @EventListener(BithumbTickerResponse::class)
+    fun listenBithumbStreamSocketListener(tickerResponse: BithumbTickerResponse) {
+        println("[BITHUMB] Receive OrderBookDepthResponse: $tickerResponse")
+        kafkaTemplate.send(TopicType.BITHUMB_STREAM.topicName, objectMapper.serialize(tickerResponse))
     }
 
-    @EventListener(OrderBookResponse::class)
-    fun listenUpbitSocketListener(orderBookResponse: OrderBookResponse) {
-        println("[UPBIT] Receive OrderBookResponse: $orderBookResponse")
-        kafkaTemplate.send(TopicType.UPBIT.topicName, objectMapper.serialize(orderBookResponse))
+    @EventListener(TickerResponse::class)
+    fun listenUpbitStreamSocketListener(tickerResponse: TickerResponse) {
+        println("[UPBIT] Receive OrderBookResponse: $tickerResponse")
+        kafkaTemplate.send(TopicType.UPBIT_STREAM.topicName, objectMapper.serialize(tickerResponse))
     }
 
     fun <T> ObjectMapper.serialize(data: T): String = writeValueAsString(data)

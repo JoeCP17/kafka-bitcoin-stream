@@ -7,5 +7,6 @@ enum class TopicType(
     BITHUMB("bithumb"),
     BITHUMB_STREAM("bithumb-stream"),
     COINONE("coinone"),
-    UPBIT("upbit")
+    UPBIT("upbit"),
+    UPBIT_STREAM("upbit-stream"),
 }

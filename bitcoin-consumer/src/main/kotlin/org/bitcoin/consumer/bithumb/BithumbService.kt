@@ -1,7 +1,6 @@
 package org.bitcoin.consumer.bithumb
 
 import org.bitcoin.consumer.dto.BitumbOrderbookResponseDTO
-import org.bitcoin.domain.bithumb.response.OrderBookDepthResponse
 import org.bitcoin.infrastructure.jpa.bithumb.entity.*
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -29,28 +28,24 @@ class BithumbService(
         }
     }
 
-    fun saveOrderBookStreamData(deserializeData: OrderBookDepthResponse) {
-        TODO("Not yet implemented")
-    }
-
     private fun saveOverBook(response: BitumbOrderbookResponseDTO): JpaOverBook {
-        return toOverBookEntityBy(response).let {
-            overBookRepository.save(it)
+        return toOverBookEntityBy(response).let { overBook ->
+            overBookRepository.save(overBook)
         }
     }
 
     private fun saveOrderBookAsks(response: BitumbOrderbookResponseDTO, overBook: JpaOverBook) {
-        response.data.asks.forEach { it ->
-            toAsksEntityBy(it.quantity, it.price, overBook).let {
-                orderBookAsksRepository.save(it)
+        response.data.asks.forEach { ask ->
+            toAsksEntityBy(ask.quantity, ask.price, overBook).let { overbookAsks ->
+                orderBookAsksRepository.save(overbookAsks)
             }
         }
     }
 
     private fun saveOrderBookBids(response: BitumbOrderbookResponseDTO, overBook: JpaOverBook) {
-        response.data.bids.forEach { it ->
-            toBidsEntityBy(it.quantity, it.price, overBook).let {
-                orderBookBidsRepository.save(it)
+        response.data.bids.forEach { bids ->
+            toBidsEntityBy(bids.quantity, bids.price, overBook).let { bidsEntity ->
+                orderBookBidsRepository.save(bidsEntity)
             }
         }
     }
