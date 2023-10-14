@@ -14,4 +14,9 @@ dependencies {
     implementation(project(":bitcoin-domain"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
+
+    // websocket
+    implementation ("org.springframework.boot:spring-boot-starter-websocket")
+    implementation("org.webjars:sockjs-client:1.1.2")
+    implementation("org.webjars:stomp-websocket:2.3.3-1")
 }
