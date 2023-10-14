@@ -1,7 +1,9 @@
 package org.bitcoin.consumer.bithumb
 
 import org.bitcoin.consumer.dto.BitumbOrderbookResponseDTO
+import org.bitcoin.domain.bithumb.response.BithumbTickerResponse
 import org.bitcoin.infrastructure.jpa.bithumb.entity.*
+import org.springframework.messaging.simp.SimpMessageSendingOperations
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -10,8 +12,13 @@ import org.springframework.transaction.annotation.Transactional
 class BithumbService(
     val orderBookAsksRepository: JpaOrderBookAsksRepository,
     val orderBookBidsRepository: JpaOrderBookBidsRepository,
-    val overBookRepository: JpaOverBookRepository
+    val overBookRepository: JpaOverBookRepository,
+    val simpMessageSendingOperations: SimpMessageSendingOperations
 ) {
+
+    fun sendMessageToUser(response: BithumbTickerResponse) {
+        simpMessageSendingOperations.convertAndSend("/topic/bithumb", response)
+    }
 
     @Transactional
     fun saveOrderBookData(response: BitumbOrderbookResponseDTO) {

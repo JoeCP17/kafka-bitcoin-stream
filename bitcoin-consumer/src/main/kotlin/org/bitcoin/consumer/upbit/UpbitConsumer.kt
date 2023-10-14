@@ -15,8 +15,8 @@ class UpbitConsumer(
     fun getUpbitOrderBookData(message: String) {
         val deserializeData =
             objectMapper.deserialize(message, TickerResponse::class.java)
-
         println(deserializeData)
+        upbitService.sendMessageToUser(deserializeData)
     }
 
 

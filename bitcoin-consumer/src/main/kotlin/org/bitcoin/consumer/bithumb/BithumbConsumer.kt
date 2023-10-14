@@ -19,16 +19,16 @@ class BithumbConsumer(
     fun getBitumbOrderBookData(message: String) {
         val deserializeData =
             objectMapper.deserialize(message, BithumbTickerResponse::class.java)
-
         println(deserializeData)
+        bithumbService.sendMessageToUser(deserializeData)
     }
 
     @KafkaListener(topics = ["bithumb-stream"], groupId = "bitcoin")
     fun getBitumbOrderBookStreamData(message: String) {
         val deserializeData =
             objectMapper.deserialize(message, BithumbTickerResponse::class.java)
-
         println(deserializeData)
+        bithumbService.sendMessageToUser(deserializeData)
     }
 
     fun <T> ObjectMapper.deserialize(data: String, clazz: Class<T>): T = readValue(data, clazz)
