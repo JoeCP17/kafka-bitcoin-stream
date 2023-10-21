@@ -1,6 +1,6 @@
 package org.bitcoin.external.bithumb.webflux.fetcher
 
-import org.bitcoin.domain.bithumb.response.BitumbOrderbookResponse
+import org.bitcoin.domain.bithumb.response.BitumbOrderbook
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.reactive.function.client.WebClient
@@ -12,11 +12,11 @@ class BithumbFetcher(
     val bitumbWebClient: WebClient
 ) {
 
-    fun getBitumbOrderbook(code: String): BitumbOrderbookResponse {
+    fun getBitumbOrderbook(code: String): BitumbOrderbook {
         return bitumbWebClient.get()
             .uri{builder -> builder.path("/$code").build()}
             .retrieve()
-            .bodyToMono(BitumbOrderbookResponse::class.java)
+            .bodyToMono(BitumbOrderbook::class.java)
             .block()!!
     }
 }

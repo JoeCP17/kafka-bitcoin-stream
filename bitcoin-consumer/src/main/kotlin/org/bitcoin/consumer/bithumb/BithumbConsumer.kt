@@ -1,9 +1,7 @@
 package org.bitcoin.consumer.bithumb
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.bitcoin.consumer.dto.BitumbOrderbookResponseDTO
-import org.bitcoin.domain.bithumb.response.BithumbOrderBookDepthResponse
-import org.bitcoin.domain.bithumb.response.BithumbTickerResponse
+import org.bitcoin.domain.bithumb.response.BithumbTicker
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.annotation.KafkaListener
 
@@ -18,7 +16,7 @@ class BithumbConsumer(
     @KafkaListener(topics = ["bithumb"], groupId = "bitcoin")
     fun getBitumbOrderBookData(message: String) {
         val deserializeData =
-            objectMapper.deserialize(message, BithumbTickerResponse::class.java)
+            objectMapper.deserialize(message, BithumbTicker::class.java)
         println(deserializeData)
         bithumbService.sendMessageToUser(deserializeData)
     }
@@ -26,7 +24,7 @@ class BithumbConsumer(
     @KafkaListener(topics = ["bithumb-stream"], groupId = "bitcoin")
     fun getBitumbOrderBookStreamData(message: String) {
         val deserializeData =
-            objectMapper.deserialize(message, BithumbTickerResponse::class.java)
+            objectMapper.deserialize(message, BithumbTicker::class.java)
         println(deserializeData)
         bithumbService.sendMessageToUser(deserializeData)
     }

@@ -1,7 +1,7 @@
 package org.bitcoin.consumer.bithumb
 
 import org.bitcoin.consumer.dto.BitumbOrderbookResponseDTO
-import org.bitcoin.domain.bithumb.response.BithumbTickerResponse
+import org.bitcoin.domain.bithumb.response.BithumbTicker
 import org.bitcoin.infrastructure.jpa.bithumb.entity.*
 import org.springframework.messaging.simp.SimpMessageSendingOperations
 import org.springframework.stereotype.Service
@@ -16,7 +16,7 @@ class BithumbService(
     val simpMessageSendingOperations: SimpMessageSendingOperations
 ) {
 
-    fun sendMessageToUser(response: BithumbTickerResponse) {
+    fun sendMessageToUser(response: BithumbTicker) {
         simpMessageSendingOperations.convertAndSend("/topic/bithumb", response)
     }
 

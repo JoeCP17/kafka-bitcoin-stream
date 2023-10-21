@@ -2,7 +2,7 @@ package org.bitcoin.domain.bithumb.response
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class BitumbOrderbookResponse(
+data class BitumbOrderbook(
     val status: String,
     val data: bithumbOrderbookDataDTO
 ) {

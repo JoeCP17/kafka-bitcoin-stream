@@ -2,9 +2,8 @@ package org.bitcoin.websocket.bithumb.handler
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.bitcoin.domain.bithumb.request.CoinSymbol
-import org.bitcoin.domain.bithumb.request.BithumbSocketRequest
-import org.bitcoin.domain.bithumb.response.BithumbOrderBookDepthResponse
-import org.bitcoin.domain.bithumb.response.BithumbTickerResponse
+import org.bitcoin.domain.bithumb.request.BithumbSocket
+import org.bitcoin.domain.bithumb.response.BithumbTicker
 import org.bitcoin.domain.type.ExchangeType
 import org.bitcoin.infrastructure.jpa.bithumb.service.CoinSymbolRepository
 import org.bitcoin.redispublish.publish.RedisPublishService
@@ -35,7 +34,7 @@ class BithumbSocketHandler(
     // 클라이언트가 접속을 성공할 경우 발생하는 이벤트
     override fun afterConnectionEstablished(session: WebSocketSession) {
         println("[BITHUMB] Got Connect : ${session.id}")
-        val depthRequest = BithumbSocketRequest.createTickerRequest(findAllByExchange(ExchangeType.BITHUMB))
+        val depthRequest = BithumbSocket.createTickerRequest(findAllByExchange(ExchangeType.BITHUMB))
         session.sendMessage(TextMessage(objectMapper.writeValueAsString(depthRequest)))
     }
 
@@ -48,7 +47,7 @@ class BithumbSocketHandler(
 
             if (!readTree.has("status")) {
                 val response =
-                    objectMapper.readValue(message.payload, BithumbTickerResponse::class.java)
+                    objectMapper.readValue(message.payload, BithumbTicker::class.java)
 
                 redisPublishService.publish(
                     getChannelInSymbols(findAllByExchange(ExchangeType.BITHUMB)),

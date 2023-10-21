@@ -1,6 +1,6 @@
 package org.bitcoin.domain.bithumb.response
 
-data class BithumbTickerResponse(
+data class BithumbTicker(
     val type: String,
     val content: TickerResponse
 ) {
